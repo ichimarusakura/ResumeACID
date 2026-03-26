@@ -1,7 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from 'motion/react';
-import { ArrowUpRight, Plus, Minus, Github, Linkedin, Mail, ArrowLeft } from 'lucide-react';
+import { ArrowUpRight, Plus, Minus, Github, Mail, ArrowLeft } from 'lucide-react';
 import { ReactLenis } from 'lenis/react';
+
+function WechatIcon({ size = 24, className = "" }: { size?: number, className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 1024 1024" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M682.666667 341.333333c-17.066667 0-34.133333 0-51.2 4.266667C605.866667 217.6 477.866667 128 320 128 140.8 128 0 247.466667 0 396.8c0 85.333333 46.933333 162.133333 123.733333 213.333333l-34.133333 106.666667 115.2-59.733333c38.4 12.8 76.8 17.066667 119.466667 17.066667 8.533333 0 17.066667 0 25.6-4.266667C332.8 512 430.933333 384 576 384c34.133333 0 68.266667 4.266667 106.666667 12.8C682.666667 366.933333 682.666667 354.133333 682.666667 341.333333z m-204.8-106.666666c25.6 0 42.666667 17.066667 42.666667 42.666666s-17.066667 42.666667-42.666667 42.666667-42.666667-17.066667-42.666667-42.666667 17.066667-42.666666 42.666667-42.666666z m-213.333334 85.333333c-25.6 0-42.666667-17.066667-42.666666-42.666667s17.066667-42.666667 42.666666-42.666666 42.666667 17.066667 42.666667 42.666666-17.066667 42.666667-42.666667 42.666667z" />
+      <path d="M1024 640c0-136.533333-136.533333-247.466667-307.2-247.466667-170.666667 0-307.2 110.933333-307.2 247.466667 0 136.533333 136.533333 247.466667 307.2 247.466667 38.4 0 72.533333-8.533333 106.666667-21.333334l89.6 46.933334-25.6-81.066667C977.066667 776.533333 1024 712.533333 1024 640z m-409.6-42.666667c-17.066667 0-34.133333-12.8-34.133333-34.133333s17.066667-34.133333 34.133333-34.133333 34.133333 12.8 34.133333 34.133333-17.066667 34.133333-34.133333 34.133333z m196.266667 0c-17.066667 0-34.133333-12.8-34.133334-34.133333s17.066667-34.133333 34.133334-34.133333 34.133333 12.8 34.133333 34.133333-17.066667 34.133333-34.133333 34.133333z" />
+    </svg>
+  );
+}
 
 function ParallaxContent({ children, className }: { children: React.ReactNode, className?: string }) {
   const ref = useRef(null);
@@ -91,7 +100,7 @@ export default function App() {
         </div>
 
         {/* Floating Pill Navbar */}
-        <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 flex items-center p-1.5 bg-white/60 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/60">
+        <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 flex items-center p-1.5 bg-white/60 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/60 print:hidden">
           {navItems.map((item) => {
             const isActive = activeSection === item.id && !selectedProject;
             return (
@@ -141,13 +150,31 @@ export default function App() {
         </nav>
 
         <main className="relative z-10 pt-24">
-          <AnimatePresence mode="wait">
-            {selectedProject ? (
-              <ProjectDetail key="detail" project={selectedProject} onBack={() => setSelectedProject(null)} />
-            ) : (
-              <HomeView key="home" onSelectProject={setSelectedProject} />
-            )}
-          </AnimatePresence>
+          <div className="print:hidden">
+            <AnimatePresence mode="wait">
+              {selectedProject ? (
+                <ProjectDetail key="detail" project={selectedProject} onBack={() => setSelectedProject(null)} />
+              ) : (
+                <HomeView key="home" onSelectProject={setSelectedProject} />
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Print View */}
+          <div className="hidden print:block">
+            <HomeView key="home-print" onSelectProject={() => {}} />
+            <div className="px-6 md:px-12 py-12 max-w-7xl mx-auto break-before-page">
+              <h2 className="text-4xl font-bold tracking-tight text-slate-900 mb-12 border-b border-slate-200 pb-4">
+                项目详情
+              </h2>
+              {projects.map((project, idx) => (
+                <div key={idx} className="mb-24 break-inside-avoid">
+                  <ProjectDetail project={project} onBack={() => {}} isPrint />
+                </div>
+              ))}
+            </div>
+            <Footer />
+          </div>
         </main>
 
         {/* Global Styles */}
@@ -174,6 +201,18 @@ export default function App() {
           .animate-blob { animation: blob 20s infinite alternate ease-in-out; }
           .animation-delay-2000 { animation-delay: 2s; }
           .animation-delay-4000 { animation-delay: 4s; }
+
+          @media print {
+            body {
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            * { cursor: auto !important; }
+            .print\\:hidden { display: none !important; }
+            .print\\:block { display: block !important; }
+            .print\\:opacity-100 { opacity: 1 !important; }
+            .print\\:translate-y-0 { transform: translateY(0) !important; }
+          }
         `}</style>
       </div>
     </ReactLenis>
@@ -204,7 +243,7 @@ function CustomCursor() {
   if (!isVisible) return null;
 
   return (
-    <>
+    <div className="print:hidden">
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-sky-500 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
         style={{ x: mouseX, y: mouseY }}
@@ -213,7 +252,7 @@ function CustomCursor() {
         className="fixed top-0 left-0 w-8 h-8 border border-sky-400/60 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2"
         style={{ x: cursorXSpring, y: cursorYSpring }}
       />
-    </>
+    </div>
   );
 }
 
@@ -249,7 +288,33 @@ function BlurTypewriter({ text, delay = 0, className = "" }: { text: string, del
 
 // --- Views ---
 
-function HomeView({ onSelectProject }: { onSelectProject: (p: any) => void }) {
+function Footer() {
+  return (
+    <footer id="contact" className="bg-sky-50 text-slate-800 px-6 md:px-12 py-20 border-t border-slate-200">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+        <div>
+          <div className="mb-8 space-y-2 text-slate-900 font-bold text-xl md:text-2xl">
+            <p>电话：13955168047</p>
+            <p>邮箱：ichimarusakura@qq.com</p>
+          </div>
+          <button 
+            onClick={() => window.print()}
+            className="bg-sky-500 text-white px-8 py-4 rounded-none font-bold tracking-wider hover:bg-slate-900 transition-colors flex items-center gap-3 print:hidden"
+          >
+            获取完整简历 <ArrowUpRight size={20} />
+          </button>
+        </div>
+        <div className="flex gap-6 print:hidden">
+          <SocialLink icon={Github} />
+          <SocialLink icon={WechatIcon} isWechat />
+          <SocialLink icon={Mail} />
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void, key?: React.Key }) {
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
   const heroY = useTransform(smoothProgress, [0, 0.3], ['0%', '40%']);
@@ -310,11 +375,22 @@ function HomeView({ onSelectProject }: { onSelectProject: (p: any) => void }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-slate-200 pt-8">
-            <Stat label="Current Role" value="AI产品经理" />
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 border-t border-slate-200 pt-8">
             <Stat label="Location" value="合肥" />
             <Stat label="Experience" value="7年+B/G端产品" />
             <Stat label="Core Focus" value="AI大模型应用" />
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-2">Education</div>
+              <div className="font-bold text-lg tracking-tight text-slate-800">合肥工业大学</div>
+              <div className="text-slate-600 text-sm font-medium mt-1">工程管理</div>
+              <div className="font-mono text-[10px] text-slate-400 mt-1">2014.03 ~ 2016.07</div>
+            </div>
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-2">Education</div>
+              <div className="font-bold text-lg tracking-tight text-slate-800">滁州职业技术学院</div>
+              <div className="text-slate-600 text-sm font-medium mt-1">建筑装饰工程技术</div>
+              <div className="font-mono text-[10px] text-slate-400 mt-1">2008.09 ~ 2011.07</div>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -371,7 +447,7 @@ function HomeView({ onSelectProject }: { onSelectProject: (p: any) => void }) {
             <p className="font-mono text-xs uppercase tracking-widest text-slate-400">Selected Works</p>
           </div>
 
-          <div className="flex flex-col md:flex-row w-full min-h-[600px] border border-white/50 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+          <div className="flex flex-col md:flex-row w-full min-h-[600px] border border-white/50 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)] print:hidden">
             {projects.map((project, index) => (
               <AccordionItem 
                 key={index} 
@@ -387,43 +463,30 @@ function HomeView({ onSelectProject }: { onSelectProject: (p: any) => void }) {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="bg-sky-50 text-slate-800 px-6 md:px-12 py-20 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 text-slate-900">
-              期待与您探讨<br/>
-              <span className="text-sky-500">AI 落地的新可能。</span>
-            </h2>
-            <button className="bg-sky-500 text-white px-8 py-4 rounded-none font-bold tracking-wider hover:bg-slate-900 transition-colors flex items-center gap-3">
-              获取完整简历 <ArrowUpRight size={20} />
-            </button>
-          </div>
-          <div className="flex gap-6">
-            <SocialLink icon={Github} />
-            <SocialLink icon={Linkedin} />
-            <SocialLink icon={Mail} />
-          </div>
-        </div>
-      </footer>
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </motion.div>
   );
 }
 
-function ProjectDetail({ project, onBack }: { project: any, onBack: () => void }) {
+function ProjectDetail({ project, onBack, isPrint = false, key }: { project: any, onBack: () => void, isPrint?: boolean, key?: React.Key }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-7xl mx-auto px-6 md:px-12 py-12"
+      className={`max-w-7xl mx-auto ${isPrint ? '' : 'px-6 md:px-12 py-12'} print:opacity-100 print:translate-y-0`}
     >
-      <button 
-        onClick={onBack}
-        className="flex items-center gap-2 text-slate-500 hover:text-sky-500 font-mono text-sm uppercase tracking-widest mb-12 transition-colors"
-      >
-        <ArrowLeft size={16} /> Back to Projects
-      </button>
+      {!isPrint && (
+        <button 
+          onClick={onBack}
+          className="flex items-center gap-2 text-slate-500 hover:text-sky-500 font-mono text-sm uppercase tracking-widest mb-12 transition-colors print:hidden"
+        >
+          <ArrowLeft size={16} /> Back to Projects
+        </button>
+      )}
 
       <header className="mb-20 border-b border-slate-200 pb-12">
         <div className="flex items-center gap-4 mb-6">
@@ -480,20 +543,7 @@ function ProjectDetail({ project, onBack }: { project: any, onBack: () => void }
             ))}
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-20">
-            <img 
-              src={project.details.images[0]} 
-              alt="Project screenshot 1" 
-              className="w-full h-64 object-cover bg-slate-200 rounded-md"
-              referrerPolicy="no-referrer"
-            />
-            <img 
-              src={project.details.images[1]} 
-              alt="Project screenshot 2" 
-              className="w-full h-64 object-cover bg-slate-200 rounded-md"
-              referrerPolicy="no-referrer"
-            />
-          </div>
+          <div className="pb-20"></div>
         </div>
       </div>
     </motion.div>
@@ -511,11 +561,21 @@ function Stat({ label, value }: { label: string, value: string }) {
   );
 }
 
-function SocialLink({ icon: Icon }: { icon: any }) {
+function SocialLink({ icon: Icon, isWechat = false }: { icon: any, isWechat?: boolean }) {
   return (
-    <a href="#" className="w-12 h-12 rounded-none border border-slate-300 flex items-center justify-center hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-colors">
-      <Icon size={20} />
-    </a>
+    <div className="relative group">
+      <a href="#" className="w-12 h-12 rounded-none border border-slate-300 flex items-center justify-center hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-colors">
+        <Icon size={20} />
+      </a>
+      {isWechat && (
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50">
+          <div className="bg-white p-2 rounded-lg shadow-xl border border-slate-200 relative">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=WeChat" alt="WeChat QR Code" className="w-32 h-32" />
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-b border-r border-slate-200 transform rotate-45"></div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -565,7 +625,7 @@ function TypewriterText({ text, isActive, delay = 500 }: { text: string, isActiv
   );
 }
 
-function AccordionItem({ project, index, isActive, onActivate, onViewDetails }: { project: any, index: number, isActive: boolean, onActivate: () => void, onViewDetails: () => void }) {
+function AccordionItem({ project, index, isActive, onActivate, onViewDetails, key }: { project: any, index: number, isActive: boolean, onActivate: () => void, onViewDetails: () => void, key?: React.Key }) {
   return (
     <div 
       className={`group flex flex-col border-b md:border-b-0 md:border-r border-white/40 last:border-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden backdrop-blur-xl ${
