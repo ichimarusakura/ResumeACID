@@ -337,7 +337,7 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
             <div>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 flex items-baseline gap-4 text-slate-900">
-                <BlurTypewriter text="王勇" delay={0.1} />
+                <BlurTypewriter text="王 勇" delay={0.1} />
                 <span className="text-sky-500 font-mono text-2xl md:text-4xl font-normal">
                   <BlurTypewriter text="/ WANG YONG" delay={0.4} />
                 </span>
