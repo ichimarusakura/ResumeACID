@@ -26,7 +26,7 @@ function ParallaxContent({ children, className }: { children: React.ReactNode, c
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={`${className || ''} print:!opacity-100 print:!filter-none print:!transform-none`}
       style={{ y, opacity, filter: blur }}
     >
       {children}
@@ -268,7 +268,7 @@ function BlurTypewriter({ text, delay = 0, className = "" }: { text: string, del
         visible: { transition: { staggerChildren: 0.03, delayChildren: delay } },
         hidden: {}
       }}
-      className={`inline-block ${className}`}
+      className={`inline-block ${className} print:!opacity-100 print:!filter-none print:!transform-none`}
     >
       {chars.map((char, i) => (
         <motion.span
@@ -277,7 +277,7 @@ function BlurTypewriter({ text, delay = 0, className = "" }: { text: string, del
             hidden: { opacity: 0, filter: 'blur(10px)', y: 5 },
             visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.4 } }
           }}
-          className="inline-block"
+          className="inline-block print:!opacity-100 print:!filter-none print:!transform-none"
         >
           {char === " " ? "\u00A0" : char}
         </motion.span>
@@ -329,10 +329,11 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
+      className="print:!opacity-100 print:!transform-none"
     >
       {/* Hero Section */}
       <section id="home" className="pt-20 pb-20 px-6 md:px-12 border-b border-slate-200">
-        <motion.div style={{ y: heroY, opacity: heroOpacity, filter: heroBlur }} className="max-w-7xl mx-auto">
+        <motion.div style={{ y: heroY, opacity: heroOpacity, filter: heroBlur }} className="max-w-7xl mx-auto print:!opacity-100 print:!filter-none print:!transform-none">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
             <div>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 flex items-baseline gap-4 text-slate-900">
@@ -354,7 +355,7 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
-                className="text-xs md:text-sm leading-relaxed text-slate-600 font-medium text-justify max-h-[240px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent"
+                className="text-xs md:text-sm leading-relaxed text-slate-600 font-medium text-justify max-h-[240px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent print:!opacity-100 print:!transform-none print:max-h-none print:overflow-visible"
                 data-lenis-prevent
               >
                 <ul className="space-y-4 list-disc pl-4 marker:text-sky-500">
@@ -413,7 +414,7 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="mb-16 last:mb-0 ml-8 md:ml-12 relative"
+                className="mb-16 last:mb-0 ml-8 md:ml-12 relative print:!opacity-100 print:!transform-none"
               >
                 {/* Timeline Dot */}
                 <span className="absolute -left-[41px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-sky-500 ring-4 ring-[#F8FAFC]" />
@@ -438,7 +439,7 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
       </section>
 
       {/* Projects Section */}
-      <section id="work" className="px-6 md:px-12 py-32 bg-white/10 relative z-10">
+      <section id="work" className="px-6 md:px-12 py-32 bg-white/10 relative z-10 print:hidden">
         <ParallaxContent className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-2">
@@ -477,7 +478,7 @@ function ProjectDetail({ project, onBack, isPrint = false, key }: { project: any
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`max-w-7xl mx-auto ${isPrint ? '' : 'px-6 md:px-12 py-12'} print:opacity-100 print:translate-y-0`}
+      className={`max-w-7xl mx-auto ${isPrint ? '' : 'px-6 md:px-12 py-12'} print:!opacity-100 print:!transform-none`}
     >
       {!isPrint && (
         <button 
