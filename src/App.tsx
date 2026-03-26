@@ -337,13 +337,13 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
             <div>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 flex items-baseline gap-4 text-slate-900">
-                <BlurTypewriter text="林逸" delay={0.1} />
+                <BlurTypewriter text="王勇" delay={0.1} />
                 <span className="text-sky-500 font-mono text-2xl md:text-4xl font-normal">
-                  <BlurTypewriter text="/ LIN YI" delay={0.4} />
+                  <BlurTypewriter text="/ WANG YONG" delay={0.4} />
                 </span>
               </h1>
               <h2 className="text-2xl md:text-3xl font-medium text-slate-600 mb-6">
-                <BlurTypewriter text="资深 AI 产品专家" delay={0.8} />
+                <BlurTypewriter text="资深 AI 产品经理" delay={0.8} />
               </h2>
             </div>
             <div className="max-w-xl pb-2">
@@ -378,8 +378,8 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 border-t border-slate-200 pt-8">
             <Stat label="Location" value="合肥" />
-            <Stat label="Experience" value="7年+B/G端产品" />
-            <Stat label="Core Focus" value="AI大模型应用" />
+            <Stat label="Experience" value="7年+" />
+            <Stat label="Core Focus" value="B G端产品 / AI大模型应用" />
             <div>
               <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-2">Education</div>
               <div className="font-bold text-lg tracking-tight text-slate-800">合肥工业大学</div>
@@ -697,7 +697,7 @@ const experiences = [
   {
     period: "2025.05 ~ 至今",
     company: "中科类脑 - 智算事业部",
-    role: "资深 AI 产品经理",
+    role: "AI 产品经理",
     coreOutput: "独立负责Agent架构抽象与RAG策略调优，具备将复杂政务SOP转化为多智能体协同工作流的能力。",
     achievements: [
       { title: "高可用RAG中台与策略调优 (召回率97%)：", desc: "构建基于 RBAC 的知识库，引入 MinerU 解析复杂政务文档。搭建基于“准确率/命中率”的模型评估看板，通过检索与重排策略优化，将平均召回率稳定在 97%。" },
@@ -709,7 +709,7 @@ const experiences = [
   {
     period: "2024.03 ~ 2025.04",
     company: "讯飞智元 - 智慧城市BG",
-    role: "AI 产品经理 (OD)",
+    role: "AI 产品经理",
     coreOutput: "采用敏捷交付模式，主导省级网信办（WXB）“AI+大模型”态势感知与舆情智能监测系统的从 0 到 1 构建。",
     achievements: [
       { title: "海量数据LLM挖掘与24H预警：", desc: "优化底层信源采集规则，接入LLM对日均 400 万条海量数据进行动态阈值过滤与潜在热点挖掘，实现无人工干预的全自动预警。" },
@@ -720,7 +720,7 @@ const experiences = [
   {
     period: "2015.07 ~ 2023.12",
     company: "安徽清新互联信息科技有限公司",
-    role: "产品线负责人 / 软硬协同中台 PM",
+    role: "产品经理 / 软硬协同中台产品/ UI 设计师",
     coreOutput: "统筹公司软件平台与 UI 体验，主导安防 GIS 系统及四大核心底层业务矩阵的架构演进，推动公司业务从硬件交付向 SaaS 化平台转型。",
     achievements: [
       { title: "大型军警GIS综合调度平台 (新疆武警/公安)：", desc: "结合 OSM 地图与硬件实景回传进行路网基建，自研高精度路线纠偏算法。深度融合多源异构设备，设计复杂执勤考勤引擎，平台投产后推动核心区域街面见警率提升至 98%，获官方“十分满意”验收评价。" },
