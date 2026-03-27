@@ -569,9 +569,9 @@ function SocialLink({ icon: Icon, isWechat = false }: { icon: any, isWechat?: bo
         <Icon size={20} />
       </a>
       {isWechat && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50">
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50 w-max">
           <div className="bg-white p-2 rounded-lg shadow-xl border border-slate-200 relative">
-            <img src={new URL('./qr.png', import.meta.url).href} alt="WeChat QR Code" className="w-60 h-80" />
+            <img src={new URL('./qr.png', import.meta.url).href} alt="WeChat QR Code" className="w-60 h-80 max-w-none" />
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-b border-r border-slate-200 transform rotate-45"></div>
           </div>
         </div>
