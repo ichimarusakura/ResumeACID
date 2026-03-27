@@ -294,8 +294,8 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
         <div>
           <div className="mb-8 space-y-2 text-slate-900 font-bold text-xl md:text-2xl">
-            <p>电话：13955168047</p>
-            <p>邮箱：ichimarusakura@qq.com</p>
+            <p>13955168047</p>
+            <p>ichimarusakura@qq.com</p>
           </div>
           <button 
             onClick={() => window.print()}
@@ -366,7 +366,7 @@ function HomeView({ onSelectProject, key }: { onSelectProject: (p: any) => void,
                     <span className="font-bold text-slate-900">复杂业务架构抽象：</span>深耕 G 端政务、军警与 B 端能源基建领域。具备复杂业务拆解能力，能将高压且非标的业务 SOP 转化为标准化、中台化的系统模型，主导过多款千万级政企平台的设计演进。
                   </li>
                   <li>
-                    <span className="font-bold text-slate-900">多模态软硬协同底盘：</span>拥有“LLM大模型 + CV视觉算法 + IoT物联硬件 + GIS时空数据”全链路产品跨界综合经验。熟练掌握 Python 数据分析，能直接对接算法团队进行模型评测、数据样本清洗与调优策略制定。
+                    <span className="font-bold text-slate-900">多模态软硬协同底盘：</span>拥有“LLM大模型 + CV视觉算法 + IoT物联硬件 + GIS时空数据”全链路产品跨界综合经验。熟练掌握数据分析，能直接对接算法团队进行模型评测、数据样本清洗与调优策略制定。
                   </li>
                   <li>
                     <span className="font-bold text-slate-900">敏捷交付与用户体验把控：</span>UI/UX 设计师出身，具备极高的交互审美与同理心。擅长处理复杂软硬件交互场景，精准平衡客户定制化诉求。
@@ -571,7 +571,7 @@ function SocialLink({ icon: Icon, isWechat = false }: { icon: any, isWechat?: bo
       {isWechat && (
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-50">
           <div className="bg-white p-2 rounded-lg shadow-xl border border-slate-200 relative">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=WeChat" alt="WeChat QR Code" className="w-32 h-32" />
+            <img src={new URL('./qr.png', import.meta.url).href} alt="WeChat QR Code" className="w-60 h-80" />
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-b border-r border-slate-200 transform rotate-45"></div>
           </div>
         </div>
@@ -700,9 +700,9 @@ const experiences = [
     role: "AI 产品经理",
     coreOutput: "独立负责Agent架构抽象与RAG策略调优，具备将复杂政务SOP转化为多智能体协同工作流的能力。",
     achievements: [
-      { title: "高可用RAG中台与策略调优 (召回率97%)：", desc: "构建基于 RBAC 的知识库，引入 MinerU 解析复杂政务文档。搭建基于“准确率/命中率”的模型评估看板，通过检索与重排策略优化，将平均召回率稳定在 97%。" },
+      { title: "高可用RAG中台与策略调优：", desc: "设计非结构化知识库，引入 MinerU 解析复杂政务文档。搭建基于“准确率/命中率”的模型评估看板，通过检索与重排策略优化，将平均召回率稳定在 97%。" },
       { title: "Agent工作流与Tools/Skills编排：", desc: "设计自定义智能体引擎。针对公文与合同生成场景，抽象设计专属 Tools（结构化指标解析、数据库智能问数）与 Skills（公文合规SOP），实现全自动化报告撰写。" },
-      { title: "12345多智能体业务流效能提升 (+70%)：", desc: "基于清洗后的 1.7 万条代表案例知识库，设计包含意图识别、自动归类转派、阶段报告生成的多智能体协同工作流，推动转派与处理效率大幅提升 70%。" },
+      { title: "多智能体业务流效能提升：", desc: "基于清洗后的 1.7 万条代表案例知识库，设计包含意图识别、自动归类转派、阶段报告生成的多智能体协同工作流，推动转派与处理效率大幅提升 70%。" },
       { title: "产业大模型Deep Research应用：", desc: "结合关系图谱与政策库RAG，构建宏观产业全景与企业画像，落地产业链推演与精准招商推荐系统。" }
     ]
   },
@@ -710,20 +710,20 @@ const experiences = [
     period: "2024.03 ~ 2025.04",
     company: "讯飞智元 - 智慧城市BG",
     role: "AI 产品经理",
-    coreOutput: "采用敏捷交付模式，主导省级网信办（WXB）“AI+大模型”态势感知与舆情智能监测系统的从 0 到 1 构建。",
+    coreOutput: "采用敏捷交付模式，主导省级网信办“AI+大模型”态势感知与舆情智能监测系统的从 0 到 1 构建。",
     achievements: [
       { title: "海量数据LLM挖掘与24H预警：", desc: "优化底层信源采集规则，接入LLM对日均 400 万条海量数据进行动态阈值过滤与潜在热点挖掘，实现无人工干预的全自动预警。" },
-      { title: "数据工程与模型调优 (准确率94%)：", desc: "针对实网舆情噪音数据，主导构建并提供高质量训练集与验证集。制定算法优化策略，并在生产环境主导模型测试，将核心舆情意图识别准确率提升至 94%。" },
-      { title: "图谱构建与事件闭环 (95%完成率)：", desc: "基于 LLM 构建舆情事件传播知识图谱。打通多部门应急预案模板，利用模型自动生成标准化预案及态势报告，辅助网信办实现 95% 以上突发事件在 72 小时内闭环处置。" }
+      { title: "数据工程与模型调优：", desc: "针对实网舆情噪音数据，主导构建并提供高质量训练集与验证集。制定算法优化策略，并在生产环境主导模型测试，将核心舆情意图识别准确率提升至 94%。" },
+      { title: "图谱构建与事件闭环：", desc: "基于 LLM 构建舆情事件传播知识图谱。打通多部门应急预案模板，利用模型自动生成标准化预案及态势报告，辅助网信办实现 95% 以上突发事件在 72 小时内闭环处置。" }
     ]
   },
   {
     period: "2015.07 ~ 2023.12",
     company: "安徽清新互联信息科技有限公司",
-    role: "产品经理 / 软硬协同中台产品/ UI 设计师",
+    role: "产品经理 / UI|UX 设计师",
     coreOutput: "统筹公司软件平台与 UI 体验，主导安防 GIS 系统及四大核心底层业务矩阵的架构演进，推动公司业务从硬件交付向 SaaS 化平台转型。",
     achievements: [
-      { title: "大型军警GIS综合调度平台 (新疆武警/公安)：", desc: "结合 OSM 地图与硬件实景回传进行路网基建，自研高精度路线纠偏算法。深度融合多源异构设备，设计复杂执勤考勤引擎，平台投产后推动核心区域街面见警率提升至 98%，获官方“十分满意”验收评价。" },
+      { title: "大型军警GIS综合调度平台：", desc: "结合 OSM 地图与硬件实景回传进行路网基建，自研高精度路线纠偏算法。深度融合多源异构设备，设计复杂执勤考勤引擎，平台投产后推动核心区域街面见警率提升至 98%，获官方“十分满意”验收评价。" },
       { title: "音视频云底座与AI视觉物联：", desc: "抽象跨行业诉求，从 0 构建国标音视频云平台（ICVS）。结合 CV 视觉算法落地防疫矩阵与光伏电力无人巡检，并亲自下场主导高并发环境下的数据样本清洗，反向优化识别准确率。" },
       { title: "复杂系统 SaaS 化与商业演进：", desc: "规划建发智慧工地、华米智慧养老及变电站数字孪生产品线，打通可穿戴设备、3D 模型与业务流。并行主导公司内部 ERP/MIS 系统的流程重构与自研，大幅降低企业内耗与外采成本。" }
     ]
@@ -753,7 +753,7 @@ const projects = [
           items: [
             '根据各业务场景设计非结构化知识库，同时引入 MinerU等工具实现复杂政务文档的多模态解析。',
             '**技术深挖与成果：** 建立基于准确率、命中率的大模型评估与归因体系。通过优化检索策略、重排与多路召回机制，将 **RAG 平均召回率稳定提升至 97%**。',
-            '**业务沉淀：** 累计为知识库清洗并沉淀 **1,300 条区域权责清单、17,000 余条代表性历史案例，以及超 30 万条全国政策**，形成极具业务价值的政务数据资产。'
+            '**业务沉淀：** 累计为知识库清洗并沉淀 **1,300+ 条区域权责清单、17,000+ 条代表性历史案例，以及超 30 万条全国政策**，形成极具业务价值的政务数据资产。'
           ]
         },
         {
@@ -898,7 +898,7 @@ const projects = [
     ],
     details: {
       role: '产品经理',
-      duration: '14 个月',
+      duration: '长期',
       platform: '客户端/内网-本地私有化部署',
       team: '10+人',
       description: '依托公司音视频硬件优势，从0主导打造覆盖事前预警、事中指挥、事后回溯的应急指挥调度标准化底层平台。并以此为基座，结合计算机视觉算法与 IoT 技术，成功复制应用并落地公安、消防、防疫等多行业的深度定制化子系统矩阵。',
@@ -943,7 +943,7 @@ const projects = [
     ],
     details: {
       role: '产品经理',
-      duration: '24 个月',
+      duration: '长期',
       platform: '客户端-Web/内网-本地私有化部署',
       team: '10+人',
       description: '构建了一系列创新性的产品解决方案，覆盖了从音视频传输与AI物联平台到软硬一体化配套系统的多个领域。',
